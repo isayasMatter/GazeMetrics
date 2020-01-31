@@ -1,0 +1,169 @@
+fileFormatVersion: 2
+guid: f9e308df831da5846aa65d2d91739292
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Cylinder002
+    100002: Cylinder004
+    100004: Cylinder006
+    100006: OilTank004
+    100008: OilTank006
+    100010: Sphere001
+    100012: //RootNode
+    100014: Case Lining
+    100016: Menu Button
+    100018: System Button
+    100020: Trackpad
+    100022: Trigger
+    100024: Cylinder011
+    100026: Grip Left
+    100028: Grip Right
+    400000: Cylinder002
+    400002: Cylinder004
+    400004: Cylinder006
+    400006: OilTank004
+    400008: OilTank006
+    400010: Sphere001
+    400012: //RootNode
+    400014: Case Lining
+    400016: Menu Button
+    400018: System Button
+    400020: Trackpad
+    400022: Trigger
+    400024: Cylinder011
+    400026: Grip Left
+    400028: Grip Right
+    2100000: 'Material #3'
+    2100002: No Name
+    2100004: 'Material #2'
+    2100006: 'Material #14'
+    2100008: 'Material #16'
+    2300000: Cylinder002
+    2300002: Cylinder004
+    2300004: Cylinder006
+    2300006: OilTank004
+    2300008: OilTank006
+    2300010: Sphere001
+    2300012: Case Lining
+    2300014: Menu Button
+    2300016: System Button
+    2300018: //RootNode
+    2300020: Trackpad
+    2300022: Trigger
+    2300024: Cylinder011
+    2300026: Grip Left
+    2300028: Grip Right
+    3300000: Cylinder002
+    3300002: Cylinder004
+    3300004: Cylinder006
+    3300006: OilTank004
+    3300008: OilTank006
+    3300010: Sphere001
+    3300012: Case Lining
+    3300014: Menu Button
+    3300016: System Button
+    3300018: //RootNode
+    3300020: Trackpad
+    3300022: Trigger
+    3300024: Cylinder011
+    3300026: Grip Left
+    3300028: Grip Right
+    4300000: OilTank004
+    4300002: Cylinder004
+    4300004: Cylinder006
+    4300006: Sphere001
+    4300008: Cylinder002
+    4300010: OilTank006
+    4300012: Case
+    4300014: Case Lining
+    4300016: Trigger
+    4300018: Menu Button
+    4300020: System Button
+    4300022: Trackpad
+    4300024: Controller Body
+    4300026: Grip Left
+    4300028: Grip Right
+    4300030: Cylinder011
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
