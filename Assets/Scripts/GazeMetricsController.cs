@@ -33,7 +33,12 @@ namespace GazeMetrics
         private const string SranipalProviderCompilerFlagString = "VIVE_SDK";
         private const string TobiiXRProviderCompilerFlagString = "TOBII_SDK";
         private const string PupilProviderCompilerFlagString = "PUPIL_SDK";
+
+        private const string SranipalProviderName = "GazeMetrics.SranipalProvider";
+        private const string TobiiXRProviderName = "GazeMetrics.TobiiXRProvider";
+        private const string PupilProviderName = "GazeMetrics.PupilProvider";
         private string _compilerFlagString;
+        private string _currentProviderName;
         private EyeGazeData _gazeData;
         private GazeDataProvider _gazeProvider;
 
@@ -42,6 +47,7 @@ namespace GazeMetrics
         public event Action OnCalibrationRoutineDone;
         public event Action OnCalibrationFailed;
         public event Action OnCalibrationSucceeded;
+        public event Action<TargetMetrics> OnMetricsCalculated;
 
         //members
         GazeMetricsBase calibration = new GazeMetricsBase();
@@ -56,10 +62,14 @@ namespace GazeMetrics
 
         bool previewMarkersActive = false;
         bool _isSampleExcluded;
+        void Awake(){
+            
+        }
         void OnEnable()
         {
             calibration.OnCalibrationSucceeded += CalibrationSucceeded;
             calibration.OnCalibrationFailed += CalibrationFailed;
+            calibration.OnMetricsCalculated += MetricsCalcuated;
 
             if (marker == null || camera == null || settings == null || targets == null)
             {
@@ -70,8 +80,9 @@ namespace GazeMetrics
                         
             Time.fixedDeltaTime = (float)1/settings.samplingRate;
             
-            InitPreviewMarker();
             InitGazeProvider();
+            InitPreviewMarker();
+            
         }
 
         void OnDisable()
@@ -137,7 +148,7 @@ namespace GazeMetrics
            
 
             Debug.Log("Starting Calibration");
-            Debug.Log((_gazeProvider.GetType().ToString()));
+            //Debug.Log((_gazeProvider.GetType().ToString()));
 
             showPreview = false;
 
@@ -201,7 +212,7 @@ namespace GazeMetrics
                 tLastSample = tNow;
 
                 //Adding the calibration reference data to the list that will be passed on, once the required sample amount is met.
-                // double sampleTimeStamp = timeSync.ConvertToPupilTime(Time.realtimeSinceStartup);
+                
                 AddSample();
 
                 targetSampleCount++;//Increment the current calibration sample. (Default sample amount per calibration point is 120)
@@ -240,6 +251,15 @@ namespace GazeMetrics
             }
         }
 
+        private void MetricsCalcuated()
+        {
+            if(OnMetricsCalculated != null)
+            {
+                OnMetricsCalculated(new TargetMetrics());
+            }
+        }
+
+        private Vector3 _previousGazeDirection;
         private void AddSample()
         {
             SampleData pointData = new SampleData();
@@ -258,7 +278,9 @@ namespace GazeMetrics
             pointData.worldGazeDistance = _gazeProvider.LocalEyeGazeData.Distance; 
             
             //Calculate sample metrics
-            MetricsCalculator.CalculateSampleMetrics(ref pointData, Vector3.zero);            
+            MetricsCalculator.CalculateSampleMetrics(ref pointData, _previousGazeDirection);            
+            
+            _previousGazeDirection = pointData.worldGazeDirection;
 
             calibration.AddCalibrationPointReferencePosition(pointData);
         }
@@ -312,37 +334,42 @@ namespace GazeMetrics
         private void InitGazeProvider(){
             if (_gazeProvider != null) return;
             Debug.Log("Initializing provider: " + ProviderSDK);
-            _gazeProvider = GetProvider();
+            
+            UpdateCurrentProvider();
 
-            if (_gazeProvider != null){
+            if (_compilerFlagString != null){
                 PlayerSettings.SetScriptingDefineSymbolsForGroup(BuildTargetGroup.Standalone, _compilerFlagString);
             }
-            
+
+            _gazeProvider = GetProvider();
             _gazeProvider.Initialize();
         }
         
-        private GazeDataProvider GetProvider(){
-            string providerName = "";
+        private void UpdateCurrentProvider(){            
             
             switch(ProviderSDK){
                 case ProvidersList.HTCViveSranipal:
-                    providerName = "GazeMetrics.SranipalProvider";
+                    _currentProviderName = SranipalProviderName;
                     _compilerFlagString = SranipalProviderCompilerFlagString;
                     break;
                 case ProvidersList.PupiLabs:
-                    providerName = "GazeMetrics.PupilProvider";
+                    _currentProviderName = PupilProviderName;
                     _compilerFlagString = PupilProviderCompilerFlagString;
                     break;
                 case ProvidersList.TobiiXR:
-                    providerName = "GazeMetrics.TobiiXRProvider";
+                    _currentProviderName = TobiiXRProviderName;
                     _compilerFlagString = TobiiXRProviderCompilerFlagString;
                     break;
                 default:
-                    return null;                    
-            }
-            Debug.Log("Initializing provider for: " + providerName);
-            return GetProviderFromName(providerName);            
+                    return;                    
+            }           
+                        
         }
+
+        private GazeDataProvider GetProvider(){
+            return GetProviderFromName(_currentProviderName);
+        }
+
 
         private GazeDataProvider GetProviderFromName(string ProviderName)
         {

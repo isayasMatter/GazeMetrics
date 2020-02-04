@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,33 +23,33 @@ namespace GazeMetrics{
             Ray r = new Ray(sampleDataPoint.worldGazeOrigin, sampleDataPoint.worldGazeDirection);
 
             sampleDataPoint.wolrdGazePoint = r.GetPoint(sampleDataPoint.worldGazeDistance);
+            
             sampleDataPoint.OffsetAngle = offsetAngle;                 
             sampleDataPoint.interSampleAngle = interSampleAngle; 
         }        
 
-        public static void CalculateTargetMetrics(List<SampleData> sampleDataList){
-            
-            var targetMetricsQuery = from sampledata in sampleDataList 
-                where sampledata.exclude == false && sampledata.isValid == true 
-                group sampledata by sampledata.targetId into sampleGroup
-                select new TargetMetrics
-                    {
-                        targetId = sampleGroup.Key,
-                        AverageAccuracy = (from sm in sampleGroup where sm.exclude == false && sm.isValid == true select sm).Average(p => p.OffsetAngle),
-                        RmsPrecision = (from sm in sampleGroup where sm.exclude == false && sm.isValid == true select sm).RootMeanSquare(),
-                        SdPrecision = 0 , //(from sm in sampleGroup where sm.exclude == false && sm.isValid == true select sm).StandardDeviation(),
-                        SampleCount = sampleGroup.Count(), 
-                        ValidSamples = (from sm in sampleGroup where sm.isValid == true select sm).Count(),
-                        ExcludedSamples = (from sm in sampleGroup where sm.exclude == true select sm).Count()                                               
-                    };
-
-                foreach (TargetMetrics tm in targetMetricsQuery){
-                    Debug.Log(tm.targetId + ", " + tm.AverageAccuracy);
-                }
+        public static TargetMetrics CalculateTargetMetrics(List<SampleData> sampleDataList){
+             try{
+                var targetMetricsQuery = from sampledata in sampleDataList                  
+                    group sampledata by sampledata.targetId into sampleGroup
+                    select new TargetMetrics
+                        {
+                            targetId = sampleGroup.Key,
+                            AverageAccuracy = (from sm in sampleGroup where sm.exclude == false && sm.isValid == true select sm).Average(p => p.OffsetAngle),
+                            RmsPrecision = (from sm in sampleGroup where sm.exclude == false && sm.isValid == true select sm).RootMeanSquare(),
+                            SdPrecision = (from sm in sampleGroup where sm.exclude == false && sm.isValid == true select sm).StandardDeviation(),
+                            SampleCount = sampleGroup.Count(), 
+                            ValidSamples = (from sm in sampleGroup where sm.isValid == true select sm).Count(),
+                            ExcludedSamples = (from sm in sampleGroup where sm.exclude == true select sm).Count()                                               
+                        };                
                 
+                    return targetMetricsQuery.ElementAt(0);
+                }
+                catch (Exception e){
+                    return new TargetMetrics();
+                }
         }      
-
-        
+       
     }
 
     public static class LINQExtension
@@ -87,13 +88,13 @@ namespace GazeMetrics{
             return M2 / (n - 1);
         }
 
-        public static float StandardDeviation(this IEnumerable<SampleData> source) 
+        public static Vector3 StandardDeviation(this IEnumerable<SampleData> source) 
         { 
             float sdx = Mathf.Sqrt((float)source.Select(t => t.wolrdGazePoint.x).Variance()); 
             float sdy = Mathf.Sqrt((float)source.Select(t => t.wolrdGazePoint.y).Variance());   
             float sdz = Mathf.Sqrt((float)source.Select(t => t.wolrdGazePoint.z).Variance());  
 
-            return Mathf.Sqrt((Mathf.Pow(sdx,2) + Mathf.Pow(sdy,2)));      
+            return new Vector3(sdx, sdy, sdz);      
         }
 
     }

@@ -18,4 +18,5 @@ MonoBehaviour:
   backgroundColor: {r: 0.27450982, g: 0.27450982, b: 0.27450982, a: 0}
   targetColor: {r: 1, g: 1, b: 1, a: 0}
   targetCenterColor: {r: 0, g: 0, b: 0, a: 0}
-  outputFolder: 
+  experimentID: 01
+  outputFolder: D:\EyeTrackerPrecision\SampleOutput

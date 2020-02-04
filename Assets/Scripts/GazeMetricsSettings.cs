@@ -19,6 +19,7 @@ namespace GazeMetrics
         public Color targetCenterColor;
 
         [Header("Results and Output")]
+        public string experimentID;
         public string outputFolder;
         
 

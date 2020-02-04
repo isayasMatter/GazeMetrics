@@ -10,13 +10,14 @@ namespace GazeMetrics
         public event Action OnCalibrationStarted;
         public event Action OnCalibrationSucceeded;
         public event Action OnCalibrationFailed;
+        public event Action OnMetricsCalculated;
         //members
         
         GazeMetricsSettings settings;
-
-        List<Dictionary<string, object>> calibrationData = new List<Dictionary<string, object>>();
-
+     
+        List<TargetMetrics> targetMetricsList = new List<TargetMetrics>();
         List<SampleData> targetDataList = new List<SampleData>();
+        List<SampleData> experimentDataList = new List<SampleData>();
         
         public bool IsCalibrating { get; set; }
 
@@ -34,21 +35,27 @@ namespace GazeMetrics
             Debug.Log("Calibration Started");
 
             targetDataList.Clear();
+            experimentDataList.Clear();
+            targetMetricsList.Clear();
         }
 
-        public void AddCalibrationPointReferencePosition(SampleData targetData)
+        public void AddCalibrationPointReferencePosition(SampleData sampleData)
         {            
-            targetDataList.Add(targetData);
-            //Debug.Log(targetData.ToCSVString());
+            targetDataList.Add(sampleData);
+            experimentDataList.Add(sampleData);
         }
 
         public void SendCalibrationReferenceData()
         {
-            Debug.Log("Send CalibrationReferenceData");            
+            Debug.Log("Calculate metrics");            
 
-            MetricsCalculator.CalculateTargetMetrics(targetDataList);
-            //Clear the current calibration data, so we can proceed to the next point if there is any.
-            calibrationData.Clear();
+            targetMetricsList.Add(MetricsCalculator.CalculateTargetMetrics(targetDataList));
+            
+            if(OnMetricsCalculated != null){
+                OnMetricsCalculated();
+            }
+            //Clear the current target data, so we can proceed to the next target if there is any.
+            targetDataList.Clear();
         }
 
         public void StopCalibration()
@@ -57,9 +64,8 @@ namespace GazeMetrics
 
             IsCalibrating = false;
 
-            DataExporter.SamplesToCsv("samplefile.csv", targetDataList);
-
-            //Send(new Dictionary<string, object> { { "subject", "calibration.should_stop" } });
+            DataExporter.SamplesToCsv(settings.outputFolder, settings.experimentID, experimentDataList);
+            DataExporter.MetricsToCsv(settings.outputFolder, settings.experimentID, targetMetricsList);           
         }
 
         
