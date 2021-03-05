@@ -38,7 +38,7 @@ If you are working on an eye tracking project in Unity, you will most probably h
 2. Under assets download **GazeMetrics_v[version number].unitypackage**
 3. Import the **GazeMetrics_v[version number].unitypackage** you downloaded by going into "Asset -> Import Package -> Custom Package", select the .unitypackage file, ensure all items to import are checked, and then select "Import".
 
-## Configure GazeMetrics with your scene
+# Configuring GazeMetrics with your scene
 
 1. Make sure you have imported the GazeMetrics package and your preferred eye tracking Unity SDK into your scene following the steps above.
 2. Drag the GazeMetrics prefab from your assets folder in the project panel into your scene in the hierarchy panel.
@@ -68,9 +68,31 @@ If you are working on an eye tracking project in Unity, you will most probably h
     *  **Radius**: Allows you to set the radius of the circle.
     *  **Points**: This option allows you to set the number of targets per each circle. For example, if you chose 3 circles and 9 points, you will have 27 targets in total. If you have selected 2 *seconds per target* then the whole procedure would take about 54 seconds.
 
-## Running GazeMetrics
+# Running GazeMetrics
 
 If you have followed the instructions above, you can now preview your stimulus targets by pressing "P". When you are ready to start the measurement procedure you can press "C" on the keyboard. The procedure will start and you will see the targets appear one by one. After the last target is shown the procedure will end, and you will find your output data in the output folder you selected.
+
+# Citation
+
+If you used GazeMetrics in your research project, please cite the following article.
+
+```
+@inproceedings{10.1145/3379156.3391374,
+    author = {B. Adhanom, Isayas and Lee, Samantha C. and Folmer, Eelke and MacNeilage, Paul},
+    title = {GazeMetrics: An Open-Source Tool for Measuring the Data Quality of HMD-Based Eye Trackers},
+    year = {2020},
+    isbn = {9781450371346},
+    publisher = {Association for Computing Machinery},
+    address = {New York, NY, USA},
+    url = {https://doi.org/10.1145/3379156.3391374},
+    doi = {10.1145/3379156.3391374},
+    articleno = {19},
+    numpages = {5},
+    keywords = {eye movements, precision, Eye tracking, eye tracker data quality, virtual reality, accuracy},
+    location = {Stuttgart, Germany},
+    series = {ETRA '20 Short Papers}
+}
+```
 
 
 
