@@ -64,6 +64,7 @@ namespace GazeMetrics
         bool _isSampleExcluded;
         void Awake(){
             
+            
         }
         void OnEnable()
         {

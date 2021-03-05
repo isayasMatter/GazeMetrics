@@ -19,7 +19,7 @@ namespace GazeMetrics
             public bool Initialize(){  
 
                 if (!SRanipal_Eye_API.IsViveProEye()) return false;
-                InitializeSranipal();
+                // InitializeSranipal();
 
                 return (SRanipal_Eye_Framework.Status == SRanipal_Eye_Framework.FrameworkStatus.WORKING);                
             }

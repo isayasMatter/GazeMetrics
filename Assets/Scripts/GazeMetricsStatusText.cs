@@ -15,6 +15,7 @@ namespace GazeMetrics
         void Awake()
         {
             SetStatusText("Not connected");
+            statusText.enabled = true;
             gazeMetricsController = GetComponent<GazeMetricsController>();
         }
 
@@ -36,8 +37,9 @@ namespace GazeMetrics
 
         private void OnConnected()
         {
+            statusText.enabled = true;
             string text = "Connected";
-            text += "\n\nPlease warm up your eyes and press 'C' to start the calibration or 'P' to preview the calibration targets.";
+            text += "\n\nPlease warm up your eyes and press 'C' to start the procedure or 'P' to preview the calibration targets.";
             SetStatusText(text);
         }
 
@@ -48,6 +50,7 @@ namespace GazeMetrics
 
         private void OnCalibrationRoutineDone()
         {
+            
             statusText.enabled = true;
             SetStatusText("Calibration routine is done. Waiting for results ...");
         }
