@@ -9,8 +9,8 @@ namespace GazeMetrics
     public enum ProvidersList{
         HTCViveSranipal,
         TobiiXR,
-        PupiLabs
-
+        PupiLabs,
+        Varjo
     }
     public class GazeMetricsController : MonoBehaviour
     {
@@ -33,10 +33,12 @@ namespace GazeMetrics
         private const string SranipalProviderCompilerFlagString = "VIVE_SDK";
         private const string TobiiXRProviderCompilerFlagString = "TOBII_SDK";
         private const string PupilProviderCompilerFlagString = "PUPIL_SDK";
+        private const string VarjoProviderCompilerFlagString = "VARJO_SDK";
 
         private const string SranipalProviderName = "GazeMetrics.SranipalProvider";
         private const string TobiiXRProviderName = "GazeMetrics.TobiiXRProvider";
         private const string PupilProviderName = "GazeMetrics.PupilProvider";
+        private const string VarjoProviderName = "GazeMetrics.VarjoProvider";
         private string _compilerFlagString;
         private string _currentProviderName;
         private EyeGazeData _gazeData;
@@ -63,7 +65,6 @@ namespace GazeMetrics
         bool previewMarkersActive = false;
         bool _isSampleExcluded;
         void Awake(){
-            
             
         }
         void OnEnable()
@@ -360,6 +361,10 @@ namespace GazeMetrics
                 case ProvidersList.TobiiXR:
                     _currentProviderName = TobiiXRProviderName;
                     _compilerFlagString = TobiiXRProviderCompilerFlagString;
+                    break;
+                case ProvidersList.Varjo:
+                    _currentProviderName = VarjoProviderName;
+                    _compilerFlagString = VarjoProviderCompilerFlagString;
                     break;
                 default:
                     return;                    
