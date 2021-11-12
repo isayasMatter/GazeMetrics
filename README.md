@@ -3,15 +3,15 @@
 GazeMetrics is a an Open-Source Tool for Measuring the Data Quality of head mounted display (HMD) based Eye Trackers. Here are some of it's functions:
 
 * It measures spatial accuracy and spatial precision. 
-* It supports multiple eye VR HMD based eye trackers including the Vive Pro Eye integrated eye tracker, Pupil Labs eye trackers and Tobii eye trackers.
-* It streams raw eye gaze data and calculated metrics during the measurement procedure to external files.
+* It supports multiple VR HMD based eye trackers including the Vive Pro Eye integrated eye tracker, Pupil Labs eye trackers and Tobii eye trackers.
+* It streams raw eye gaze data and the derived metrics during the measurement procedure to external files.
 * It provides an extensible framework that allows developers to expand the functionality of the tool.
 
 # Required software
 
-* Unity 2019.1.*
+* Unity 2019.1.* (Working on updating this)
 * An eye tracking SDK. 
-    GazeMetrics currently supports support for Vive, Tobii and PupilLabs Unity SDKs. 
+    GazeMetrics currently supports Vive's SRanipal, Tobii XR and PupilLabs Unity SDKs. 
 
 Latest release can be found in the the "Releases" page.
 
@@ -41,8 +41,8 @@ If you are working on an eye tracking project in Unity, you will most probably h
 # Configuring GazeMetrics with your scene
 
 1. Make sure you have imported the GazeMetrics package and your preferred eye tracking Unity SDK into your scene following the steps above.
-2. Drag the GazeMetrics prefab from your assets folder in the project panel into your scene in the hierarchy panel.
-3. Select the GazeMetrics controller Game Object in the Hierarchy panel to access the tool's setting in your inspector panel.
+2. Drag the GazeMetricsController prefab from your assets folder, in the project panel, into your scene in the hierarchy panel.
+3. Select the GazeMetricsController Game Object in the Hierarchy panel to access the tool's setting in your inspector panel.
 4. Configure the settings on the inspector panel. For more information about the settings refer to the settings section below.   
 5. Run the scene.
 6. Click "p" to preview the calibration points or click "c" to start the measurement procedure.
