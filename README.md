@@ -1,3 +1,8 @@
+[![Generic badge](https://img.shields.io/badge/Maintained-Yes-green.svg)](https://shields.io/)
+[![Generic badge](https://img.shields.io/badge/Software-C%23-blue.svg)](https://shields.io/)
+[![Generic badge](https://img.shields.io/badge/License-MIT-red.svg)](https://shields.io/)
+[![DOI](https://img.shields.io/badge/DOI-10.1145%2F3379156.3391374-yellowgreen)](https://doi.org/10.1145/3379156.3391374)
+
 # What is GazeMetrics
 
 GazeMetrics is a an Open-Source Tool for Measuring the Data Quality of head mounted display (HMD) based Eye Trackers. Here are some of it's functions:
